@@ -4,7 +4,10 @@ import beans.daos.AuditoriumDAO;
 import beans.daos.BookingDAO;
 import beans.daos.EventDAO;
 import beans.daos.UserDAO;
-import beans.daos.mocks.*;
+import beans.daos.mocks.BookingDAOBookingMock;
+import beans.daos.mocks.DBAuditoriumDAOMock;
+import beans.daos.mocks.EventDAOMock;
+import beans.daos.mocks.UserDAOMock;
 import beans.models.*;
 import beans.services.*;
 import beans.services.discount.BirthdayStrategy;
@@ -77,12 +80,12 @@ public class TestBookingServiceConfiguration {
 
     @Bean
     public User testUser1() {
-        return new User(0, "dmitriy.vbabichev@gmail.com", "Dmytro Babichev", java.time.LocalDate.of(1992, 4, 29));
+        return new User(0, "artem_lodygin@epam.com", "Artem Lodygin", java.time.LocalDate.of(1992, 4, 29));
     }
 
     @Bean
     public User testUser2() {
-        return new User(1, "laory@yandex.ru", "Dmytro Babichev", java.time.LocalDate.of(1992, 4, 29));
+        return new User(1, "anothermail@yandex.ru", "Artem Lodygin", java.time.LocalDate.of(1992, 4, 29));
     }
 
     @Bean
@@ -125,7 +128,7 @@ public class TestBookingServiceConfiguration {
 
     @Bean
     public UserDAO userDAOMock() {
-        return new UserDAOMock(Arrays.asList(testUser1()));
+        return new UserDAOMock(Collections.singletonList(testUser1()));
     }
 
     @Bean
