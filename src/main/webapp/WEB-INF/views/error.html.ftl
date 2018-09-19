@@ -6,6 +6,6 @@
 </head>
 <body>
 <h1>Error occurred!</h1>
-${error.message}
+${error.class}: ${error.message}
 </body>
 </html>

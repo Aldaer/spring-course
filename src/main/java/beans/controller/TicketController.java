@@ -14,14 +14,15 @@ import java.util.ArrayList;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
+@RequestMapping("/tickets")
 public class TicketController {
     @Autowired
     @Qualifier("userServiceImpl")
     UserService userService;
 
-    @RequestMapping(value = "/tickets", method = GET)
+    @RequestMapping(method = GET)
     public String getTickets(@RequestParam String email, @ModelAttribute("tickets") ArrayList<Ticket> tickets) {
         tickets.addAll(userService.getBookedTickets());
-        return "tickets.html";
+        return "tickets.html";      // TODO: implement
     }
 }

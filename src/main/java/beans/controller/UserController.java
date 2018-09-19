@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-@Controller("/user")
+@Controller
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     @Qualifier("userServiceImpl")

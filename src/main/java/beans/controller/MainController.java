@@ -8,7 +8,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class MainController {
 
-    @RequestMapping(value = {"/"}, method = GET)
+    @RequestMapping(path = {"/"}, method = GET)
     public String index() {
         return "index.html";
     }

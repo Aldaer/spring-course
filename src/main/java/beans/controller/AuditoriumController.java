@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-@Controller("/rooms")
+@Controller
+@RequestMapping("/rooms")
 public class AuditoriumController {
     @Autowired
     AuditoriumService auditoriumService;

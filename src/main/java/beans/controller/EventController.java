@@ -13,7 +13,8 @@ import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
-@Controller("/events")
+@Controller
+@RequestMapping("/events")
 public class EventController {
     @Autowired
     @Qualifier("eventServiceImpl")
