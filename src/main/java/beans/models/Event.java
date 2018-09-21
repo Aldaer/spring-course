@@ -1,5 +1,10 @@
 package beans.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+
 import java.time.LocalDateTime;
 
 /**
@@ -10,10 +15,15 @@ import java.time.LocalDateTime;
  */
 public class Event {
 
+    @JsonIgnore
     private long          id;
+
     private String        name;
     private Rate          rate;
     private double        basePrice;
+
+    @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dateTime;
     private Auditorium    auditorium;
 

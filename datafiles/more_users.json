@@ -1,0 +1,12 @@
+[
+  {
+    "email": "bill.gates@microsoft.com",
+    "name": "Bill Gates",
+    "birthday": "10.10.1970"
+  },
+  {
+    "email": "steve.jobs@apple.com",
+    "name": "Steve Jobs",
+    "birthday": "09.09.1971"
+  }
+]

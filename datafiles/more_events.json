@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Breakfast",
+    "rate": "HIGH",
+    "basePrice": "30",
+    "dateTime": "20.10.2018 09:00",
+    "auditorium": "Red hall"
+  },
+  {
+    "name": "Lunch",
+    "rate": "MID",
+    "basePrice": "50",
+    "dateTime": "20.10.2018 13:00",
+    "auditorium": "Red hall"
+  },
+  {
+    "name": "Dinner",
+    "rate": "MID",
+    "basePrice": "50",
+    "dateTime": "20.10.2018 18:00",
+    "auditorium": "Yellow hall"
+  }
+]

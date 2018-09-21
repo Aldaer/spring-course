@@ -1,5 +1,10 @@
 package beans.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+
 import java.time.LocalDate;
 
 /**
@@ -10,9 +15,14 @@ import java.time.LocalDate;
  */
 public class User {
 
-    private long      id;
-    private String    email;
-    private String    name;
+    @JsonIgnore
+    private long id;
+
+    private String email;
+    private String name;
+
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthday;
 
     public User() {
@@ -96,10 +106,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-               "id=" + id +
-               ", email='" + email + '\'' +
-               ", name='" + name + '\'' +
-               ", birthday=" + birthday +
-               '}';
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", birthday=" + birthday +
+                '}';
     }
 }

@@ -21,7 +21,6 @@ public class AuditoriumController {
     @Autowired
     AuditoriumService auditoriumService;
 
-
     @RequestMapping(method = GET)
     public String getAuditoriumNames(@ModelAttribute("roomNames") ArrayList<String> roomNames) {
         List<String> rooms = auditoriumService.getAuditoriums().stream()
