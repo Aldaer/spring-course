@@ -5,15 +5,20 @@
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     <http auto-config="true" use-expressions="false">
-        <intercept-url pattern="/**" access="ROLE_USER"/>
+        <intercept-url pattern="/**" access="ROLE_REGISTERED_USER"/>
     </http>
 
+    <global-method-security secured-annotations="enabled"/>
+
+    <b:bean id="authProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <b:property name="userDetailsService" ref="authService"/>
+        <b:property name="passwordEncoder" ref="pwdEncoder"/>
+    </b:bean>
+
+    <b:bean id="pwdEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
     <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="artem_lodygin@epam.com" password="123" authorities="ROLE_USER"/>
-            </user-service>
-        </authentication-provider>
+        <authentication-provider ref="authProvider"/>
     </authentication-manager>
 </b:beans>
 
