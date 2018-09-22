@@ -8,8 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.security.Principal;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -24,10 +23,9 @@ public class MainController {
         return "index.html";
     }
 
-    @ModelAttribute("userEmails")
-    public List<String> getUserEmails() {
-        return userService.getUsersByName("").stream()
-                .map(User::getEmail)
-                .collect(Collectors.toList());
+    @ModelAttribute("user")
+    public User getLoggedInUser(Principal principal) {
+        String email = principal.getName();
+        return userService.getUserByEmail(email);
     }
 }

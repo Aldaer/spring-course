@@ -11,7 +11,7 @@
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="user" password="password" authorities="ROLE_USER"/>
+                <user name="artem_lodygin@epam.com" password="123" authorities="ROLE_USER"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>

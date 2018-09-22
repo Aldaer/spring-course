@@ -7,16 +7,8 @@
 <body>
 <h1>Booking App</h1>
 
-<form action="/user" method="get">
-    <p><label for="usermail">User info:</label>
-        <select name="email" id="usermail">
-            <#list userEmails as email>
-                <option>${email}</option>
-            </#list>
-        </select>
-        <input type="submit" value="View"/>
-    </p>
-</form>
+<a href="/user?email=${user.email}">Welcome, ${user.name}!</a>
+
 <p><a href="/rooms">Auditoriums</a></p>
 <p><a href="/events">Events</a></p>
 <div style="border: darkgreen solid 1px; padding: 10px;">
@@ -32,5 +24,6 @@
         <button type="submit">Upload</button>
     </form>
 </div>
+<a href="/logout">Logout</a>
 </body>
 </html>
