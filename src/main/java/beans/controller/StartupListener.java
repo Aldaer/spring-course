@@ -3,6 +3,7 @@ package beans.controller;
 import beans.aspects.CounterAspect;
 import beans.aspects.DiscountAspect;
 import beans.aspects.LuckyWinnerAspect;
+import beans.daos.UserInfoDAO;
 import beans.models.*;
 import beans.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,8 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
     @Qualifier("discountServiceImpl")
     DiscountService discountService;
 
+    @Autowired
+    UserInfoDAO userInfoDAO;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -52,8 +55,8 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
         Auditorium redHall = auditoriumService.getByName("Red hall");
         LocalDateTime dateOfEvent = LocalDateTime.of(LocalDate.of(2016, 2, 5), LocalTime.of(15, 45, 0));
 
-        userService.register(new User(email, name, LocalDate.now()));
-        userService.register(new User("anothermail@yandex.ru", name, LocalDate.of(1992, 4, 29)));
+        userInfoDAO.registerUserInfo(new UserInfo(new User(email, name, LocalDate.now()), "123"));
+        userInfoDAO.registerUserInfo(new UserInfo(new User("anothermail@yandex.ru", name, LocalDate.of(1992, 4, 29)), "123"));
 
         User userByEmail = userService.getUserByEmail(email);
         System.out.println("User with email: [" + email + "] is " + userByEmail);

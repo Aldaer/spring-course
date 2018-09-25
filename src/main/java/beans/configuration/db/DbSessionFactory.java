@@ -49,7 +49,7 @@ public class DbSessionFactory {
         localSessionFactoryBean.setMappingResources("/mappings/auditorium.hbm.xml", "/mappings/event.hbm.xml",
                                                     "/mappings/ticket.hbm.xml", "/mappings/user.hbm.xml",
                                                     "/mappings/booking.hbm.xml");
-        localSessionFactoryBean.setPackagesToScan("beans.models");
+        localSessionFactoryBean.setPackagesToScan("beans.models", "beans.daos");
         return localSessionFactoryBean;
     }
 
