@@ -6,6 +6,8 @@
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
     <http auto-config="true" use-expressions="false">
         <intercept-url pattern="/**" access="ROLE_REGISTERED_USER"/>
+        <csrf disabled="true"/>
+        <logout logout-success-url="/"/>
     </http>
 
     <global-method-security secured-annotations="enabled"/>

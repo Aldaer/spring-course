@@ -28,7 +28,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
                                   user.getEmail()));
         } else {
             Long userId = (Long) getCurrentSession().save(user);
-            return user.withId(userId);
+            return get(userId);
         }
     }
 

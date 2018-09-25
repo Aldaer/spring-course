@@ -1,8 +1,10 @@
 package beans.controller;
 
+import beans.daos.UserInfoDAO;
 import beans.models.Auditorium;
 import beans.models.Event;
 import beans.models.User;
+import beans.models.UserInfo;
 import beans.services.AuditoriumService;
 import beans.services.EventService;
 import beans.services.UserService;
@@ -15,6 +17,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +40,9 @@ public class UploadController {
     @Autowired
     AuditoriumService auditoriumService;
 
+    @Autowired
+    UserInfoDAO userInfoDAO;
+
     private final ObjectReader userReader;
     private final ObjectReader eventReader;
 
@@ -48,6 +54,7 @@ public class UploadController {
     }
 
     @RequestMapping(path = {"/upload"}, method = POST)
+    @Transactional
     public String upload(@RequestParam MultipartFile events, @RequestParam MultipartFile users) throws IOException {
         if (!users.isEmpty()) {
             addUsers(users.getBytes());
@@ -60,7 +67,10 @@ public class UploadController {
 
     private void addUsers(byte[] usersJson) throws IOException {
         User[] users = userReader.readValue(usersJson);
-        Arrays.stream(users).forEach(userService::register);
+        Arrays.stream(users)
+                .map(userService::register)
+                .map(user -> new UserInfo(user, "123"))
+        .forEach(userInfoDAO::registerUserInfo);
     }
 
     private void addEvents(byte[] eventsJson) throws IOException {
