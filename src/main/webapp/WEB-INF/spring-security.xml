@@ -3,11 +3,14 @@
          xmlns:b="http://www.springframework.org/schema/beans"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
     <http auto-config="true" use-expressions="false">
+        <intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/**" access="ROLE_REGISTERED_USER"/>
-        <csrf disabled="true"/>
+        <form-login login-page="/login.html" default-target-url="/"/>
         <logout logout-success-url="/"/>
+        <csrf disabled="true"/>
     </http>
 
     <global-method-security secured-annotations="enabled"/>

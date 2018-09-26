@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import static java.util.Optional.ofNullable;
 
 @Repository
 public class UserInfoDaoImpl extends AbstractDAO implements UserInfoDAO {
@@ -27,7 +27,7 @@ public class UserInfoDaoImpl extends AbstractDAO implements UserInfoDAO {
     @Override
     @Transactional
     public UserInfo getUserInfo(User user) {
-        return Optional.ofNullable(getCurrentSession().get(UserInfo.class, user.getId())).orElse(new UserInfo(user, pwdEncoder.encode("")));
+        return getCurrentSession().get(UserInfo.class, user.getId());
     }
 
     @Override
@@ -41,8 +41,9 @@ public class UserInfoDaoImpl extends AbstractDAO implements UserInfoDAO {
     @Override
     @Transactional
     public UserInfo findByEmail(String email) {
-        User byEmail = userDao.getByEmail(email);
-        UserInfo userInfo = getUserInfo(byEmail);
-        return userInfo;
+        return ofNullable(email)
+                .map(userDao::getByEmail)
+                .map(this::getUserInfo)
+                .orElse(null);
     }
 }
