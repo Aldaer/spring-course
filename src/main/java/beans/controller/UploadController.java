@@ -3,7 +3,6 @@ package beans.controller;
 import beans.daos.UserInfoDAO;
 import beans.models.Auditorium;
 import beans.models.Event;
-import beans.models.User;
 import beans.models.UserInfo;
 import beans.services.AuditoriumService;
 import beans.services.EventService;
@@ -43,13 +42,13 @@ public class UploadController {
     @Autowired
     UserInfoDAO userInfoDAO;
 
-    private final ObjectReader userReader;
+    private final ObjectReader userInfoReader;
     private final ObjectReader eventReader;
 
     public UploadController() {
         ObjectMapper omap = new ObjectMapper();
         omap.registerModule(new SimpleModule().addDeserializer(Auditorium.class, new AuditoriumDeserializer()));
-        userReader = omap.readerFor(User[].class);
+        userInfoReader = omap.readerFor(UserInfo[].class);
         eventReader = omap.readerFor(Event[].class);
     }
 
@@ -66,11 +65,9 @@ public class UploadController {
     }
 
     private void addUsers(byte[] usersJson) throws IOException {
-        User[] users = userReader.readValue(usersJson);
-        Arrays.stream(users)
-                .map(userService::register)
-                .map(user -> new UserInfo(user, "123"))
-        .forEach(userInfoDAO::registerUserInfo);
+        UserInfo[] userInfos = userInfoReader.readValue(usersJson);
+        Arrays.stream(userInfos)
+                .forEach(userInfoDAO::registerUserInfo);
     }
 
     private void addEvents(byte[] eventsJson) throws IOException {

@@ -3,16 +3,15 @@ package beans.services;
 import beans.daos.UserInfoDAO;
 import beans.models.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,13 +19,9 @@ import java.util.stream.Stream;
 public class AuthService implements UserDetailsService {
     private final UserInfoDAO userInfoDAO;
 
-    private final PasswordEncoder pwdEncoder;
-
     @Autowired
-    public AuthService(UserInfoDAO userInfoDAO,
-                       @Qualifier("pwdEncoder") PasswordEncoder pwdEncoder) {
+    public AuthService(UserInfoDAO userInfoDAO) {
         this.userInfoDAO = userInfoDAO;
-        this.pwdEncoder = pwdEncoder;
     }
 
     @Override
@@ -35,10 +30,13 @@ public class AuthService implements UserDetailsService {
         UserInfo userInfo = userInfoDAO.findByEmail(email);
 
         return new UserDetails() {
+            Set<String> roles = Stream.concat(userInfo.getRoles().stream().map(s -> "ROLE_" + s),
+                    Stream.of("ROLE_REGISTERED_USER"))
+                    .collect(Collectors.toSet());
+
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {
-                return Stream.of("ROLE_REGISTERED_USER")
-                        .map(SimpleGrantedAuthority::new)
+                return roles.stream().map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
             }
 

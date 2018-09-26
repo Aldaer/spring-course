@@ -1,6 +1,10 @@
 package beans.models;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class UserInfo {
@@ -14,6 +18,9 @@ public class UserInfo {
 
     @Column
     private String password;
+
+    @Column
+    private String roles;
 
     public User getUser() {
         return user;
@@ -30,6 +37,17 @@ public class UserInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<String> getRoles() {
+        return Optional.ofNullable(roles)
+                .map(roles -> roles.split(","))
+                .map(Arrays::asList)
+                .orElse(Collections.emptyList());
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public UserInfo(User user, String password) {

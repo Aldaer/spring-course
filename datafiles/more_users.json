@@ -1,12 +1,20 @@
 [
   {
-    "email": "bill.gates@microsoft.com",
-    "name": "Bill Gates",
-    "birthday": "10.10.1970"
+    "user": {
+      "email": "bill.gates@microsoft.com",
+      "name": "Bill Gates",
+      "birthday": "10.10.1970"
+    },
+    "roles": "BOOKING_MANAGER",
+    "password": "000"
   },
   {
-    "email": "steve.jobs@apple.com",
-    "name": "Steve Jobs",
-    "birthday": "09.09.1971"
+    "user": {
+      "email": "steve.jobs@apple.com",
+      "name": "Steve Jobs",
+      "birthday": "09.09.1971"
+    },
+    "roles": "BOOKING_MANAGER",
+    "password": "111"
   }
 ]

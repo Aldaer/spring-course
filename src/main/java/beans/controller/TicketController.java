@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 @RequestMapping("/tickets")
-@Secured({"BOOKING_MANAGER"})
+@Secured({"ROLE_BOOKING_MANAGER"})
 public class TicketController {
     @Autowired
     @Qualifier("userServiceImpl")
