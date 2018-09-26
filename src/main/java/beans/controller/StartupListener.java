@@ -6,6 +6,9 @@ import beans.aspects.LuckyWinnerAspect;
 import beans.daos.UserInfoDAO;
 import beans.models.*;
 import beans.services.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationListener;
@@ -21,6 +24,8 @@ import java.util.stream.IntStream;
 
 @Component
 public class StartupListener implements ApplicationListener<ContextRefreshedEvent> {
+
+    private static final String CREATE_PERSISTENT_LOGIN_TABLE = "create table persistent_logins (username varchar(64) not null, series varchar(64) primary key, token varchar(64) not null, last_used timestamp not null";
 
     @Autowired
     AuditoriumService auditoriumService;
@@ -43,6 +48,9 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
 
     @Autowired
     UserInfoDAO userInfoDAO;
+
+    @Autowired
+    SessionFactory sessionFactory;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
@@ -147,5 +155,10 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
         System.out.println("DiscountAspect.getDiscountStatistics() = " + DiscountAspect.getDiscountStatistics());
         System.out.println();
         System.out.println("LuckyWinnerAspect.getLuckyUsers() = " + LuckyWinnerAspect.getLuckyUsers());
+
+        Session currentSession = sessionFactory.openSession();
+        Transaction transaction = currentSession.beginTransaction();
+        currentSession.createSQLQuery(CREATE_PERSISTENT_LOGIN_TABLE).executeUpdate();
+        transaction.commit();
     }
 }
