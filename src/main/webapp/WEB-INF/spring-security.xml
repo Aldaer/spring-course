@@ -8,9 +8,10 @@
     <http auto-config="true" use-expressions="false">
         <intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/**" access="ROLE_REGISTERED_USER"/>
-        <form-login login-page="/login.html" default-target-url="/"/>
-        <logout logout-success-url="/"/>
-        <remember-me data-source-ref="dataSource"/>
+        <form-login login-page="/login.html" default-target-url="/"
+                    authentication-success-handler-ref="savedRequestAwareAuthenticationSuccessHandler"/>
+        <logout logout-success-url="/" delete-cookies="JSESSIONID"/>
+        <remember-me data-source-ref="dataSource" token-validity-seconds="30000" remember-me-parameter="rememberMe"/>
         <csrf disabled="true"/>
     </http>
 
@@ -22,6 +23,9 @@
     </b:bean>
 
     <b:bean id="pwdEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+    <b:bean id="savedRequestAwareAuthenticationSuccessHandler"
+            class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler"/>
 
     <authentication-manager>
         <authentication-provider ref="authProvider"/>
