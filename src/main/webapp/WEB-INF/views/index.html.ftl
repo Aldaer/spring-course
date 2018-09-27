@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Booking App</title>
+    <link rel="shortcut icon" href="#" />
 </head>
 <body>
 <h1>Booking App</h1>

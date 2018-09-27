@@ -25,7 +25,7 @@ import java.util.stream.IntStream;
 @Component
 public class StartupListener implements ApplicationListener<ContextRefreshedEvent> {
 
-    private static final String CREATE_PERSISTENT_LOGIN_TABLE = "create table persistent_logins (username varchar(64) not null, series varchar(64) primary key, token varchar(64) not null, last_used timestamp not null";
+    private static final String CREATE_PERSISTENT_LOGIN_TABLE = "create table if not exists persistent_logins (username varchar(64) not null, series varchar(64) primary key, token varchar(64) not null, last_used timestamp not null)";
 
     @Autowired
     AuditoriumService auditoriumService;

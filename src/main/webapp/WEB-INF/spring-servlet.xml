@@ -30,6 +30,7 @@
     </bean>
 
     <mvc:resources mapping="/*.html" location="/static/"/>
+    <mvc:resources mapping="/*.ico" location="/static/"/>
 
     <import resource="spring-security.xml"/>
 
