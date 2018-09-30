@@ -1,5 +1,7 @@
 package beans.controller;
 
+import beans.models.User;
+import beans.services.UserAccountService;
 import beans.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,9 +19,15 @@ public class UserController {
     @Qualifier("userServiceImpl")
     UserService userService;
 
+    @Autowired
+    UserAccountService userAccountService;
+
     @RequestMapping(method = GET)
     public String getUserInfo(@RequestParam String email, Model model) {
-        model.addAttribute("user", userService.getUserByEmail(email));
+        User currentUser = userService.getUserByEmail(email);
+        double balance = userAccountService.getBalance(currentUser);
+        model.addAttribute("user", currentUser);
+        model.addAttribute("balance", balance);
         return "users.html";
     }
 }

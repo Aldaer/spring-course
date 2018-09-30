@@ -18,7 +18,7 @@ import java.util.List;
  * Date: 20/2/16
  * Time: 7:07 PM
  */
-@Repository(value = "eventDAO")
+@Repository("eventDAO")
 public class EventDAOImpl extends AbstractDAO implements EventDAO {
 
     @Override

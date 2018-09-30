@@ -28,7 +28,6 @@ public class UserInfo {
 
     public void setUser(User user) {
         this.user = user;
-        this.id = user.getId();
     }
 
     public String getPassword() {
@@ -51,7 +50,6 @@ public class UserInfo {
     }
 
     public UserInfo(User user, String password) {
-        this.id = user.getId();
         this.user = user;
         this.password = password;
     }
