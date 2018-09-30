@@ -30,6 +30,8 @@ public class UserAccount {
         this.balance = balance;
     }
 
+    public UserAccount() {}
+
     public UserAccount(User user) {
         this.user = user;
     }

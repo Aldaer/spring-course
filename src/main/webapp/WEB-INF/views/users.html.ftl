@@ -13,6 +13,11 @@
 <p>
     Account balance: ${balance?string.currency}
 </p>
+<form action="/account/deposit" method="post">
+    <label for="amnt">Deposit funds:</label><input type="number" min="0.01" step="0.01" max="10000" id="amnt" name="amount">
+    <input type="hidden" value="${user.email}" name="email"/>
+    <input type="submit" value="Deposit..."/>
+</form>
 <p><a href="/">Home...</a></p>
 </body>
 </html>
