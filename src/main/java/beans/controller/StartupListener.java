@@ -63,7 +63,9 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
         Auditorium redHall = auditoriumService.getByName("Red hall");
         LocalDateTime dateOfEvent = LocalDateTime.of(LocalDate.of(2016, 2, 5), LocalTime.of(15, 45, 0));
 
-        userInfoDAO.registerUserInfo(new UserInfo(new User(email, name, LocalDate.now()), "123"));
+        UserInfo primaryUserInfo = new UserInfo(new User(email, name, LocalDate.now()), "123", "BOOKING_MANAGER");
+
+        userInfoDAO.registerUserInfo(primaryUserInfo);
         userInfoDAO.registerUserInfo(new UserInfo(new User("anothermail@yandex.ru", name, LocalDate.of(1992, 4, 29)), "123"));
 
         User userByEmail = userService.getUserByEmail(email);

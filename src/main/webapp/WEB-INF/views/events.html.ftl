@@ -13,6 +13,7 @@
         <th>Base price</th>
         <th>When</th>
         <th>Where</th>
+        <th></th>
     </tr>
     <#list events as event>
     <tr>
@@ -21,6 +22,7 @@
         <td>${event.basePrice}</td>
         <td>${event.dateTime}</td>
         <td><a href="/rooms?roomName=${event.auditorium.name}">${event.auditorium.name}</a></td>
+        <td><a href="/book?eventId=${event.id}">Book...</a></td>
     </tr>
     </#list>
 </table>
