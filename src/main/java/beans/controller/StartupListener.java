@@ -50,6 +50,10 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
     UserInfoDAO userInfoDAO;
 
     @Autowired
+    @Qualifier("userAccountServiceImpl")
+    UserAccountService userAccountService;
+
+    @Autowired
     SessionFactory sessionFactory;
 
     @Override
@@ -66,6 +70,7 @@ public class StartupListener implements ApplicationListener<ContextRefreshedEven
         UserInfo primaryUserInfo = new UserInfo(new User(email, name, LocalDate.now()), "123", "BOOKING_MANAGER");
 
         userInfoDAO.registerUserInfo(primaryUserInfo);
+        userAccountService.creditAccount(primaryUserInfo.getUser(), 3200d);
         userInfoDAO.registerUserInfo(new UserInfo(new User("anothermail@yandex.ru", name, LocalDate.of(1992, 4, 29)), "123"));
 
         User userByEmail = userService.getUserByEmail(email);

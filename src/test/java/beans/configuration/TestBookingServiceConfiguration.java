@@ -57,6 +57,21 @@ public class TestBookingServiceConfiguration {
     }
 
     @Bean
+    public UserAccountService userAccountService() {
+        return new UserAccountService() {
+            @Override
+            public double getBalance(User user) { return 0; }
+
+            @Override
+            public void creditAccount(User user, double amount) {}
+
+            @Override
+            public void debitAccount(User user, double amount) {}
+        };
+    }
+
+
+    @Bean
     public EventDAO eventDAOMock() {
         return new EventDAOMock(Arrays.asList(testEvent1(), testEvent2()));
     }
@@ -139,6 +154,7 @@ public class TestBookingServiceConfiguration {
     @Bean(name = "testBookingServiceImpl")
     public BookingService bookingServiceImpl() {
         return new BookingServiceImpl(eventServiceImpl(), auditoriumServiceImpl(), userServiceImpl(),
-                                      discountBookingServiceImpl(), bookingBookingDAO(), 1, 2, 1.2, 1);
+                                      discountBookingServiceImpl(), userAccountService(), bookingBookingDAO(), 1, 2, 1.2, 1);
     }
+
 }

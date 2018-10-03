@@ -13,7 +13,7 @@
 <form style="border: solid; padding: 10px" >
 <#if seats??>
     <p>Selected seats: ${seats}</p>
-    <p>Total price: ${price}</p>
+    <p>Total price: <span <#if balance < price>style="color: red"</#if>>${price}</span></p>
     <input type="submit" value="Confirm" formmethod="post">
 <#else>
     <label for="seats">Enter desired seats: </label><input type="text" name="seats" id="seats">
