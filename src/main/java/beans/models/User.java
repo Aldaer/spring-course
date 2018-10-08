@@ -4,21 +4,21 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import util.LocalDateAdapter;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Dmytro_Babichev
- * Date: 2/1/2016
- * Time: 7:35 PM
- */
+@XmlRootElement
 public class User {
 
     @JsonIgnore
     private long id;
 
     private String email;
+
     private String name;
 
     @JsonFormat(pattern = "dd.MM.yyyy")
@@ -51,6 +51,7 @@ public class User {
         this.id = id;
     }
 
+    @XmlElement
     public String getEmail() {
         return email;
     }
@@ -59,6 +60,7 @@ public class User {
         this.email = email;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -67,6 +69,8 @@ public class User {
         this.name = name;
     }
 
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getBirthday() {
         return birthday;
     }

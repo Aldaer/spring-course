@@ -4,27 +4,30 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import util.LocalDateTimeAdapter;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Dmytro_Babichev
- * Date: 2/1/2016
- * Time: 7:42 PM
- */
-public class Event {
+@XmlRootElement
+public class Event implements Serializable {
 
     @JsonIgnore
     private long          id;
 
     private String        name;
+
     private Rate          rate;
+
     private double        basePrice;
 
     @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime dateTime;
+
     private Auditorium    auditorium;
 
     public Event() {
@@ -55,6 +58,7 @@ public class Event {
         this.id = id;
     }
 
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -63,6 +67,7 @@ public class Event {
         this.name = name;
     }
 
+    @XmlElement
     public Rate getRate() {
         return rate;
     }
@@ -71,6 +76,7 @@ public class Event {
         this.rate = rate;
     }
 
+    @XmlElement
     public double getBasePrice() {
         return basePrice;
     }
@@ -79,6 +85,8 @@ public class Event {
         this.basePrice = basePrice;
     }
 
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -87,6 +95,7 @@ public class Event {
         this.dateTime = dateTime;
     }
 
+    @XmlElement
     public Auditorium getAuditorium() {
         return auditorium;
     }
