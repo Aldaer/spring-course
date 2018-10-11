@@ -77,6 +77,11 @@
             <artifactId>spring-ws-support</artifactId>
             <version>${spring.ws.ver}</version>
         </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>LATEST</version>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>

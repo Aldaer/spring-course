@@ -15,6 +15,7 @@ import java.util.List;
 @Endpoint
 public class UserEndpoint {
 
+    private static final String NAMESPACE_URI = "http://epam.com/spring-advanced-41";
     private final UserService userService;
 
     @Autowired
@@ -22,13 +23,13 @@ public class UserEndpoint {
         this.userService = userService;
     }
 
-    @PayloadRoot(localPart = "getUser")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getUser")
     @ResponsePayload
     public User getUser(@RequestPayload String email) {
         return userService.getUserByEmail(email);
     }
 
-    @PayloadRoot(localPart = "getUsers")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getUsers")
     @ResponsePayload
     public List<User> getUsers() {
         return userService.getUsersByName("");

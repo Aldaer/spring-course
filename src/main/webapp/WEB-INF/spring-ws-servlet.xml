@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="messageDispatcherServlet" class="org.springframework.ws.transport.http.MessageDispatcherServlet">
+        <!--<property name="applicationContext" ref="webApplicationContext"/>-->
+    </bean>
+
+    <bean name="users" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+        <property name="portTypeName" value="UsersPort"/>
+        <property name="locationUri" value="/ws"/>
+        <property name="targetNamespace" value="http://epam.com/spring-advanced-41"/>
+        <property name="schema" ref="xsdSchema"/>
+    </bean>
+
+    <bean name="xsdSchema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+        <constructor-arg name="xsdResource" value="classpath:jaxb_schema.xsd"/>
+    </bean>
+</beans>
