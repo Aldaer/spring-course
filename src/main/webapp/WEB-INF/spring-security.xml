@@ -7,6 +7,7 @@
 
     <http auto-config="true" use-expressions="false">
         <intercept-url pattern="/login*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/ws/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <intercept-url pattern="/**" access="ROLE_REGISTERED_USER"/>
         <form-login login-page="/login.html" default-target-url="/"
                     authentication-success-handler-ref="savedRequestAwareAuthenticationSuccessHandler"/>
