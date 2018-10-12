@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:sws="http://www.springframework.org/schema/web-services"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services.xsd">
+
+    <context:component-scan base-package="beans"/>
+
+    <sws:annotation-driven/>
 
     <bean name="messageDispatcherServlet" class="org.springframework.ws.transport.http.MessageDispatcherServlet">
-        <!--<property name="applicationContext" ref="webApplicationContext"/>-->
+        <property name="transformWsdlLocations" value="true"/>
     </bean>
 
     <bean name="users" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
@@ -17,4 +25,6 @@
     <bean name="xsdSchema" class="org.springframework.xml.xsd.SimpleXsdSchema">
         <constructor-arg name="xsdResource" value="classpath:jaxb_schema.xsd"/>
     </bean>
+
+    <import resource="spring-security.xml"/>
 </beans>

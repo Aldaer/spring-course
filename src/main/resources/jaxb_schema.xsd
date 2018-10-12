@@ -13,12 +13,6 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getUsers"/>
-
-    <xs:element name="event" type="event"/>
-
-    <xs:element name="user" type="user"/>
-
     <xs:complexType name="user">
         <xs:sequence>
             <xs:element name="birthday" type="xs:string" minOccurs="0"/>

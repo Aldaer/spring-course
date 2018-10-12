@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://epam.com/spring-advanced-41"
+                  targetNamespace="http://epam.com/spring-advanced-41">
+  <wsdl:types>
+    <xs:schema xmlns="http://epam.com/spring-advanced-41" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://epam.com/spring-advanced-41" version="1.0">
+
+    <xs:element name="getUser">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUsers"/>
+
+    <xs:element name="event" type="event"/>
+
+    <xs:element name="user" type="user"/>
+
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="birthday" type="xs:string"/>
+            <xs:element minOccurs="0" name="email" type="xs:string"/>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element minOccurs="0" name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="event">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="auditorium" type="auditorium"/>
+            <xs:element name="basePrice" type="xs:double"/>
+            <xs:element minOccurs="0" name="dateTime" type="xs:string"/>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element minOccurs="0" name="name" type="xs:string"/>
+            <xs:element minOccurs="0" name="rate" type="rate"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="auditorium">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element minOccurs="0" name="name" type="xs:string"/>
+            <xs:element name="seatsNumber" type="xs:int"/>
+            <xs:element minOccurs="0" name="vipSeats" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="vipSeatsList" nillable="true" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="rate">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="HIGH"/>
+            <xs:enumeration value="MID"/>
+            <xs:enumeration value="LOW"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:portType name="UsersPort">
+  </wsdl:portType>
+  <wsdl:binding name="UsersPortSoap11" type="tns:UsersPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  </wsdl:binding>
+  <wsdl:service name="UsersPortService">
+    <wsdl:port binding="tns:UsersPortSoap11" name="UsersPortSoap11">
+      <soap:address location="http://localhost:8080/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
